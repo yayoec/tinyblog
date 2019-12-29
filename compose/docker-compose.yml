@@ -28,8 +28,6 @@ services:
       - /Users/yanjoe/Documents/www/conf/php.ini:/usr/local/etc/php/php.ini
       - /Users/yanjoe/Documents/www:/var/www
       - /tmp:/tmp
-    ports:
-      - "9000:9000"
     # container_name: php
 
   mysql:
