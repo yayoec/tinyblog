@@ -22,8 +22,8 @@ services:
       - mysql
     image: php-fpm:7.3
     restart: always
-    environment:
-      XDEBUG_CONFIG: "idekey=phpstorm remote_host=192.168.8.165 remote_port=9001 remote_autostart=1 remote_log=/tmp/xdebug.log"
+    # environment:
+    #   XDEBUG_CONFIG: "idekey=phpstorm remote_host=192.168.8.165 remote_port=9001 remote_autostart=0 remote_log=/tmp/xdebug.log"
     volumes:
       - /Users/yanjoe/Documents/www/conf/php.ini:/usr/local/etc/php/php.ini
       - /Users/yanjoe/Documents/www:/var/www
@@ -33,7 +33,7 @@ services:
   mysql:
     image: mysql:latest
     volumes:
-      - /data/mysql:/var/lib/mysql
+      - /tmp/data/mysql:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
