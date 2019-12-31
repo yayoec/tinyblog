@@ -1,42 +1,56 @@
-<template>
+<template v-if="articleRes">
   <div id="article-container">
 	  <div class="post" id="main" role="main">
-        <?php if ($this->have()): ?>
-        <h3 class="archive-title"><?php $this->archiveTitle(array(
-            'category'  =>  _t('专题 <span>%s</span> 下的文章'),
-            'search'    =>  _t('包含关键字 <span>%s</span> 的文章'),
-            'tag'       =>  _t('标签 <span>%s</span> 下的文章'),
-            'author'    =>  _t('<span>%s</span> 发布的文章')
-        ), '', ''); ?></h3>
+        <h3 class="archive-title" v-if="articleRes.data.type == 'category'">
+          专题 <span>%s</span> 下的文章
+        </h3>
+        <h3 class="archive-title" v-else-if="articleRes.data.type == 'search'">
+          包含关键字 <span>{{articleRes.data.name}}</span> 的文章
+        </h3>
+        <h3 class="archive-title" v-else-if="articleRes.data.type == 'tag'">
+          标签 <span>{{articleRes.data.name}}</span> 下的文章
+        </h3>
         
-    	<?php while($this->next()): ?>
-	    	
-            <article>
-            	<h1><a itemtype="url" href="<?php $this->permalink() ?>"><?php $this->title() ?></a></h1>
+        <article v-for="article in articleRes.data.articles" :key="article.id">
+          <h1><a itemtype="url" href="{{article.permalLink}}">{{article.title}}</a></h1>
     			<div class="meta-top">
-		            <span class="views-count"><?php $this->readNum('阅读0', '阅读1', '阅读%d'); ?></span>
-		            <span class="comments-count"><?php $this->commentsNum('评论0', '评论1', '评论%d'); ?></span>
-		            <span class="likes-count"><?php $this->likeNum('喜欢0', '喜欢1', '喜欢%d'); ?></span>
-		        </div>
-                <div class="post-content" itemprop="articleBody">
-        			<?php $this->trimImgContents('- 阅读剩余部分 -'); ?>
-                </div>
+              <span class="views-count">阅读{{article.readNum}}</span>
+              <span class="comments-count">评论{{article.commentNum}}</span>
+              <span class="likes-count">喜欢{{article.likeNum}}</span>
+          </div>
+          <div class="post-content" itemprop="articleBody">
+        			<!-- 阅读剩余部分 -->
+          </div>
     		</article>
-    	<?php endwhile; ?>
-        <?php else: ?>
-            <article class="post">
-                <h2 class="post-title"><?php _e('没有找到内容'); ?></h2>
-            </article>
-        <?php endif; ?>
-
-        <?php $this->pageNav('&laquo; 前一页', '后一页 &raquo;'); ?>
+        
+        <article class="post">
+            <h2 class="post-title">没有找到内容</h2>
+        </article>
+         <!-- page -->
     </div>
    <!-- end #main -->
- </div>
+  </div>
 </template>
 
 <script>
+import getArticle from "../services/getArticle"
 export default {
-  
+  name: "Archive",
+  props: {},
+  data() {
+    return {
+      articleRes: getArticle().then((result) => {
+        result.data
+      }).catch((err) => {
+        console.log(err)
+      })
+    }
+  },
+  mounted() {
+
+  },
+  methods() {
+    
+  }
 }
 </script>
