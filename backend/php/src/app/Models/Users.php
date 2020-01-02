@@ -15,4 +15,8 @@ class Users extends Model
         parent::__construct();
         $this->table = config('app.table_prefix') . "_users";
     }
+
+    public function contents() {
+        return $this->belongsTo('App\Models\Content', 'author_id');
+    }
 }

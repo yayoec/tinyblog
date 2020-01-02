@@ -11,6 +11,13 @@ class Metas extends Model
     public function __construct()
     {
         parent::__construct();
-        $this->table = config('app.table_prefix') . "_metas";
+        $this->table = config('app.table_prefix') . "metas";
+    }
+
+    public function contents() {
+        return $this->hasMany(
+            'App\Models\Content',
+            'meta_id'
+        );
     }
 }

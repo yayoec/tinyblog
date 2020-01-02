@@ -19,3 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/article', 'ArticleController@index');
 Route::get('/article/{articleId}', 'ArticleController@article');
+Route::get('/metas', 'CategoryController@metas');
+Route::get('/meta/{metaId}', 'CategoryController@metaInfo');
+Route::get('/meta/articles/{metaId}', 'CategoryController@getMetaArticles');

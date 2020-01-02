@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-    'table_prefix' => 'tinyblog',
+    'table_prefix' => 'tinyblog_',
 
     'name' => env('APP_NAME', 'Laravel'),
 
