@@ -43,9 +43,8 @@
 			</h1>
 			<div id="wb_button"><wb:follow-button uid="1592703762" type="gray_2" width="136" height="24" ></wb:follow-button></div>
 	
-			<p class="header-subtitle"><?php $this->options->description() ?></p>
+			<p class="header-subtitle">undefined</p>
 	
-			</nav>
 			<nav class="header-nav">
 				<div class="social">
 		
@@ -104,3 +103,8 @@
 	
 </div>
 </template>
+<script>
+export default {
+  
+}
+</script>

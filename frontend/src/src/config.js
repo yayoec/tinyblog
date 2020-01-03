@@ -1,4 +1,5 @@
-var URI = "backend.inectu.com";
+const URI = 'backend.inectu.com';
+
 export {
   URI
 }

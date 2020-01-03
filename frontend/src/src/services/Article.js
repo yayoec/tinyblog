@@ -1,5 +1,6 @@
-import URI from '../config';
+import { URI } from '../config'
+import axios from 'axios'
 
-export async function getArticle(articleId) {
-  return axios.get(URI + '/article/{articleId}');
-} 
+export function getArticle(articleId) {
+  return axios.get(URI + '/article/' + articleId)
+}

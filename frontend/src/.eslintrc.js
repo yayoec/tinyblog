@@ -4,7 +4,7 @@ module.exports = {
         "commonjs": true,
         "es6": true
     },
-    "extends": "eslint:recommended",
+    "extends": ["vue", "standard", "plugin:vue/recommended"],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -12,9 +12,12 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
+        "allowFirstLine": true,
+        "linebreak-style": [0, "error", "windows"],
+        "space-before-function-paren": 0,
         "indent": [
-            "warn",
-            4
+            "off",
+            2
         ],
         "linebreak-style": [
             "error",
@@ -24,6 +27,13 @@ module.exports = {
             "error",
             "single"
         ],
-        "semi": ["warn", "always"]
+        "semi": ["off", "always"],
+        "vue/max-attributes-per-line": ["error", {
+          "singleline": 5,
+          "multiline": {
+            "max": 5,
+            "allowFirstLine": true
+          }
+        }]
     }
 };
