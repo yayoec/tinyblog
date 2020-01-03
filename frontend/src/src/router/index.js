@@ -5,9 +5,9 @@ import Category from '@/components/Category.vue'
 import Archive from '@/components/Archive.vue'
 import Search from '@/components/Search.vue'
 // import SideBar from '@/components/SideBar.vue'
-import Page from '@/components/Page.vue'
-import Helloworld from '@/components/Helloworld.vue'
-import Post from '@/components/Post.vue'
+// import Page from '@/components/Page.vue'
+// import Helloworld from '@/components/Helloworld.vue'
+// import Post from '@/components/Post.vue'
 import NotFound from '@/components/NotFound.vue'
 
 Vue.use(VueRouter)
@@ -22,6 +22,5 @@ const router = new VueRouter({
     { path: '*', name: '404', component: NotFound }
   ]
 })
-const components = { Page, Helloworld, Post }
 export { router }
-export { components }
+// export { Page, Helloworld, Post }

@@ -21,6 +21,9 @@ const createLintingRule = () => ({
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
+  externals: {
+    'Weibo': 'http://tjs.sjs.sinajs.cn/open/api/js/wb.js?appkey=4033368590&debug=true'
+  },
   entry: {
     app: './src/main.js'
   },

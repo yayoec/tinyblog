@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { getArticle } from '../services/Article'
+import { getArticle } from '../services/Apis'
 export default {
   name: 'Archive',
   props: {},

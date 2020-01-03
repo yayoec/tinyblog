@@ -1007,9 +1007,6 @@ article .meta-bottom {
     height: 100%;
     z-index: 999;
 }
-#userinfo{
-	
-}
 #topic{
 	left:-23%;
 }
@@ -1140,7 +1137,7 @@ article .meta-bottom {
 }
 /* == */
 
-@-webkit-keyframes moveFromTop {
+@keyframes moveFromTop {
     from {
         opacity: 0;
         -webkit-transform: translateY(200%);
@@ -1158,7 +1155,7 @@ article .meta-bottom {
         transform: translateY(0%);
     }
 }
-@-webkit-keyframes moveFromLeft {
+@keyframes moveFromLeft {
     from {
         opacity: 0;
         -webkit-transform: translateX(200%);
@@ -1176,7 +1173,7 @@ article .meta-bottom {
         transform: translateX(0%);
     }
 }
-@-webkit-keyframes moveFromRight {
+@keyframes moveFromRight {
     from {
         opacity: 0;
         -webkit-transform: translateX(-200%);
@@ -1223,7 +1220,7 @@ article .meta-bottom {
     position: relative;
     overflow: hidden;
     background: #88acdb;
-    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
     display: -webkit-box;
     -webkit-box-orient: horizontal;
     -webkit-box-pack: center;
