@@ -8,3 +8,7 @@ export function getArticle(articleId) {
 export function metas() {
   return axios.get(URI + '/api/metas')
 }
+
+export function archives() {
+  return axios.get(URI + '/api/archive/dates')
+}

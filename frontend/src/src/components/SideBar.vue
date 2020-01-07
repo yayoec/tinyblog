@@ -3,26 +3,30 @@
     <div class="navbar navbar-jianshu expanded">
       <div class="dropdown">
         <a
-          class="nav-userinfo active logo"
+          :class="[{ active: navIndex == 1 }, 'nav-userinfo']"
           title="J's Blog"
+          @click="activation(1, $event)"
         >
-          <b>J</b><i class="fa fa-home"></i><span class="title">首页</span>
+          <i class="fa fa-home"></i><span class="title">首页</span>
         </a>
         <a
-          class="nav-topic"
+          :class="[{ active: navIndex == 2 }, 'nav-topic']"
           title="专题"
+          @click="activation(2, $event)"
         >
           <i class="fa fa-th"></i><span class="title">专题</span>
         </a>
         <a
-          class="nav-archive"
+          :class="[{ active: navIndex == 3 }, 'nav-archive']"
           title="归档"
+          @click="activation(3, $event)"
         >
           <i class="fa fa-folder"></i><span class="title">归档</span>
         </a>
         <a
-          class="nav-gallary"
+          :class="[{ active: navIndex == 4 }, 'nav-gallary']"
           title="摄影"
+          @click="activation(4, $event)"
         >
           <i class="fa fa-camera"></i><span class="title">相册</span>
         </a>
@@ -39,7 +43,7 @@
 
     <!-- begin navdetail 相册 个人介绍 归档 专题 js动态切换 -->
     <div class="navdetail">
-      <div id="userinfo">
+      <div id="userinfo" :style="{left: navIndex == 1 ? '' : '-27%'}">
         <div class="overlay"></div>
         <div class="intrude-less">
           <header
@@ -111,29 +115,44 @@
         </div>
       </div>
 
-      <div id="topic">
+      <div id="topic" :style="{left: navIndex == 2 ? '' : '-27%'}">
         <ul class="mcd-menu">
           <li
-            v-for="meta in metas"
-            :key="meta.id"
+            v-for="category in categorys"
+            :key="category.id"
           >
-            <a href="123">
-              <i class="fa fa-sitemap"></i>
-              <strong>{{ meta.name }}</strong>
-              <small>{{ meta.description }}</small>
-            </a>
+            <!-- <a href="123"> -->
+            <router-link :to="{name: 'category', params: {mid: category.id}}"
+                         :class="{active: hovering == '/category/' + category.id}"
+                         exact-active-class="active"
+                         @mouseover.native="hovering = '/category/' + category.id"
+                         @mouseout.native="hovering = null"
+            >
+              <i class="fa fa-list"></i>
+              <strong>{{ category.name }}</strong>
+              <small>{{ category.description }}</small>
+            </router-link>
+            <!-- </a> -->
           </li>
         </ul>
 
       </div>
-      <div id="archive">
+      <div id="archive" :style="{left: navIndex == 3 ? '' : '-27%'}">
         <h3 class="widget-title">归档</h3>
-        <!-- <ul class="mcd-menu">
-              <?php $this->widget('Widget_Contents_Post_Date', 'type=month&format=Y/m')
-              ->parse('<li><a href="{permalink}"><strong>{date}</strong></a></li>'); ?>
-          </ul> -->
+        <ul class="mcd-menu">
+          <li v-for="(archive, index) in archives" :key="index">
+            <router-link :to="{name: 'archive', params: {year: archive.substring(0, 4), month: archive.substring(5)}}"
+                         :class="{active: hovering == archive}"
+                         exact-active-class="active"
+                         @mouseover.native="hovering = archive"
+                         @mouseout.native="hovering = null"
+            >
+              <strong>{{ archive }}</strong>
+            </router-link>
+          </li>
+        </ul>
       </div>
-      <div id="gallary">
+      <div id="gallary" :style="{left: navIndex == 4 ? '' : '-27%'}">
       </div>
 
     </div>
@@ -141,17 +160,41 @@
   </div>
 </template>
 <script>
-import { metas } from '../services/Apis'
+import { metas, archives } from '../services/Apis'
 export default {
   name: 'SideBar',
-  data () {
+  data() {
     return {
-      metas: metas().then((result) => {
-        console.log(result)
-        return result
-      }).catch((err) => {
-        console.log(err)
-      })
+      categorys: null,
+      archives: [],
+      navIndex: 1,
+      currentRoute: null,
+      hovering: null
+    }
+  },
+  mounted() {
+    metas().then((result) => {
+      this.categorys = result.data
+    }).catch((err) => {
+      console.log(err)
+    })
+    archives().then((result) => {
+      this.archives = result.data
+      // result.data.forEach(element => {
+      //   this.archives.push({
+      //     'date': element,
+      //     'year': element.substring(0, 4),
+      //     'month': element.substring(5)
+      //   })
+      // });
+    })
+  },
+  methods: {
+    activation: function(navIndex, event) {
+      this.navIndex = navIndex;
+      if (navIndex === 4) {
+        alert('相册功能暂未开放');
+      }
     }
   }
 }

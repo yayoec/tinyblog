@@ -1007,21 +1007,21 @@ article .meta-bottom {
     height: 100%;
     z-index: 999;
 }
-#topic{
+/* #topic{
 	left:-23%;
 }
 #archive{
 	left:-23%;
-}
+} */
 #archive .widget-title{
 	margin: 35px 19px 30px;
 	text-align: left;
 	
 }
 #archive .mcd-menu a{height: 1em;}
-#gallary{
+/* #gallary{
 	left:-23%;
-}
+} */
 /**左侧专题 归档菜单效果**/
 .mcd-menu {
   list-style: none;

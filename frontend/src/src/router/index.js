@@ -16,7 +16,7 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/', name: 'index', component: Index },
-    { path: '/category', name: 'category', component: Category },
+    { path: '/category/:mid', name: 'category', component: Category },
     { path: '/:year/:month', name: 'archive', component: Archive },
     { path: '/search', name: 'search', component: Search },
     { path: '*', name: '404', component: NotFound }
