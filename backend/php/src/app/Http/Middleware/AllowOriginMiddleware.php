@@ -15,10 +15,13 @@ class AllowOriginMiddleware
      */
     public function handle($request, Closure $next)
     {
+        return $next($request)->header('Access-Control-Allow-Origin', '*')
+            ->header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE')
+            ->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, X-CSRF-TOKEN, Accept, Authorization, X-XSRF-TOKEN')
+            ->header('Access-Control-Expose-Headers', 'Authorization, authenticated')
+            ->header('Access-Control-Allow-Credentials', 'true');
         $response = $next($request);
         $origin = $request->server('SERVER_NAME') ? $request->server('SERVER_NAME') : '';
-//        echo "<pre>";
-//        var_dump($request->server);die;
         $allow_origin = [
             'localhost',
             'blog.inectu.com'

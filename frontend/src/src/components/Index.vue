@@ -1,15 +1,18 @@
 <template>
-  <SideBar/>
+  <div>
+    <SideBar/>
+    <MainRight/>
+  </div>
 </template>
 <script>
 import HelloWorld from './HelloWorld.vue';
-import Category from './Category.vue'
+import MainRight from './MainRight.vue'
 import SideBar from './SideBar.vue'
 // import Sidebar from './SideBar.vue'
 // import Header from './Header.vue'
 export default {
   name: 'Index',
-  components: { HelloWorld, Category, SideBar },
+  components: { HelloWorld, MainRight, SideBar },
   mounted: function() {
     console.log(1);
   }

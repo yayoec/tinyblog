@@ -12,3 +12,7 @@ export function metas() {
 export function archives() {
   return axios.get(URI + '/api/archive/dates')
 }
+
+export function articles() {
+  return axios.get(URI + '/api/articles')
+}

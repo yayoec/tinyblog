@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Metas;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -34,5 +35,22 @@ class CategoryController extends Controller
             }
         });
         return $allContents;
+    }
+
+    public function archiveList() {
+        $table = config('app.table_prefix') . 'contents';
+        $dates = DB::table($table)->select(DB::raw('date_format(FROM_UNIXTIME(created), "%Y/%m") as archive_date'))
+            ->where('type', '=', 'post')
+            ->where('status', '=', 'publish')
+            ->where('created', '<', time())
+            ->orderBy('created', 'desc')
+            ->get();
+        $res = [];
+        collect($dates)->map(function ($date) use ( & $res) {
+            if(!in_array($date->archive_date, $res)) {
+                array_push($res, $date->archive_date);
+            }
+        });
+        return $res;
     }
 }
