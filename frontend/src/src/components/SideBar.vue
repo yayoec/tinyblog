@@ -154,7 +154,6 @@
       </div>
       <div id="gallary" :style="{left: navIndex == 4 ? '' : '-27%'}">
       </div>
-
     </div>
 
   </div>

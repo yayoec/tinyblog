@@ -18,7 +18,7 @@ class Article extends JsonResource
         if($hasImgs){
             $img = $matches[0];
         } else {
-            $img = '';
+            $img = 0;
         }
         $text = $this->text;
         preg_match_all('/<p>.*?<\/p>/', $this->text, $textMatches);
@@ -31,8 +31,9 @@ class Article extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'meta_id' => $this->meta_id,
-            'created' => $this->created,
-            'modified' => $this->modified,
+            'meta_name' => $this->meta->name,
+            'created' => date_format($this->created, 'Y.m.d'),
+            'modified' => date_format($this->modified, 'Y.m.d'),
             'text' => $text,
             'img' => $img,
             'order' => $this->order,

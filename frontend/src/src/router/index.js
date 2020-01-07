@@ -7,7 +7,7 @@ import Search from '@/components/Search.vue'
 // import SideBar from '@/components/SideBar.vue'
 // import Page from '@/components/Page.vue'
 // import Helloworld from '@/components/Helloworld.vue'
-// import Post from '@/components/Post.vue'
+import Post from '@/components/Post.vue'
 import NotFound from '@/components/NotFound.vue'
 
 Vue.use(VueRouter)
@@ -20,6 +20,7 @@ const router = new VueRouter({
     { path: '/tags/:name', name: 'tags', component: Category },
     { path: '/:year/:month', name: 'archive', component: Archive },
     { path: '/search', name: 'search', component: Search },
+    { path: '/article/:aid', name: 'article', component: Post },
     { path: '*', name: '404', component: NotFound }
   ]
 })
