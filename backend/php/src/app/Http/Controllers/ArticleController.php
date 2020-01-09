@@ -14,8 +14,7 @@ class ArticleController extends Controller
     }
 
     public function article($articleId) {
-        echo "<pre>";
-        var_dump(Content::find($articleId)->meta->name);
+        return new ArticleResource(Content::find($articleId));
     }
 
     public function articleList() {

@@ -2,13 +2,13 @@
   <div id="sidebar">
     <div class="navbar navbar-jianshu expanded">
       <div class="dropdown">
-        <a
-          :class="[{ active: navIndex == 1 }, 'nav-userinfo']"
-          title="J's Blog"
-          @click="activation(1, $event)"
+        <router-link :to="{name: 'index'}"
+                     :class="[{ active: navIndex == 1 }, 'nav-userinfo']"
+                     title="J's Blog"
+                     @click="activation(1, $event)"
         >
           <i class="fa fa-home"></i><span class="title">首页</span>
-        </a>
+        </router-link>
         <a
           :class="[{ active: navIndex == 2 }, 'nav-topic']"
           title="专题"
@@ -196,11 +196,11 @@ export default {
       //   })
       // });
     })
-    if (this.$route.path === 1) {
+    if (this.$route.path === '/') {
       this.navIndex = 1
     } else if (this.$route.path.startsWith('/category')) {
       this.navIndex = 2
-    } else if (this.$route.path.matchs(/\/\d+/)) {
+    } else if (this.$route.path.startsWith('/archive')) {
       this.navIndex = 3
     }
     this.currentRoute = this.$route.path

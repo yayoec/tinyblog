@@ -24,3 +24,4 @@ Route::get('/metas', 'CategoryController@metas');
 Route::get('/meta/{metaId}', 'CategoryController@metaInfo');
 Route::get('/meta/articles/{metaId}', 'CategoryController@getMetaArticles');
 Route::get('/archive/dates', 'CategoryController@archiveList');
+Route::get('/archive/{year}/{month}', 'ArchiveController@articleList');

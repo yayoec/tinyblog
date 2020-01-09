@@ -18,7 +18,7 @@ const router = new VueRouter({
     { path: '/', name: 'index', component: Index },
     { path: '/category/:mid', name: 'category', component: Category },
     { path: '/tags/:name', name: 'tags', component: Category },
-    { path: '/:year/:month', name: 'archive', component: Archive },
+    { path: '/archive/:year/:month', name: 'archive', component: Archive },
     { path: '/search', name: 'search', component: Search },
     { path: '/article/:aid', name: 'article', component: Post },
     { path: '*', name: '404', component: NotFound }
