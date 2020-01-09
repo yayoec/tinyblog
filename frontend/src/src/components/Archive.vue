@@ -10,6 +10,7 @@
       <h3 v-else-if="articleRes.data.type == 'tag'" class="archive-title">
         标签 <span>{{ articleRes.data.name }}</span> 下的文章
       </h3>
+
       <article v-for="article in articleRes.data.articles" :key="article.id">
         <h1><a :href="article.permalLink" itemtype="url"> {{ article.title }} </a></h1>
         <div class="meta-top">
@@ -32,12 +33,13 @@
 
 <script>
 import { getArticle } from '../services/Apis'
+import PostList from './PostList.vue'
 export default {
   name: 'Archive',
-  props: {},
+  components: { PostList },
   data() {
     return {
-      articleRes: getArticle().then((result) => {
+      articles: getArticle().then((result) => {
         return result.data
       }).catch((err) => {
         console.log(err)

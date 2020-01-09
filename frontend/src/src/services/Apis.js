@@ -9,6 +9,10 @@ export function metas() {
   return axios.get(URI + '/api/metas')
 }
 
+export function metaArticles(metaId) {
+  return axios.get(URI + '/api/meta/articles/' + metaId)
+}
+
 export function archives() {
   return axios.get(URI + '/api/archive/dates')
 }

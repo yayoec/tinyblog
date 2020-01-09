@@ -160,6 +160,7 @@
 </template>
 <script>
 import { metas, archives } from '../services/Apis'
+import { mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'SideBar',
   data() {
@@ -171,12 +172,20 @@ export default {
       hovering: null
     }
   },
+  computed: {
+    ...mapGetters(['hasMetas', 'getMetas'])
+  },
   mounted() {
-    metas().then((result) => {
-      this.categorys = result.data
-    }).catch((err) => {
-      console.log(err)
-    })
+    if (!this.$store.getters.hasMetas) {
+      metas().then((result) => {
+        this.categorys = result.data
+        this.$store.commit('setMetas', result.data)
+      }).catch((err) => {
+        console.log(err)
+      })
+    } else {
+      this.categorys = this.$store.getters.getMetas
+    }
     archives().then((result) => {
       this.archives = result.data
       // result.data.forEach(element => {
@@ -187,8 +196,19 @@ export default {
       //   })
       // });
     })
+    if (this.$route.path === 1) {
+      this.navIndex = 1
+    } else if (this.$route.path.startsWith('/category')) {
+      this.navIndex = 2
+    } else if (this.$route.path.matchs(/\/\d+/)) {
+      this.navIndex = 3
+    }
+    this.currentRoute = this.$route.path
   },
   methods: {
+    ...mapMutations({
+      setMetas: 'setMetas'
+    }),
     activation: function(navIndex, event) {
       this.navIndex = navIndex;
       if (navIndex === 4) {
