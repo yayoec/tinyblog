@@ -22,6 +22,7 @@
 
 <script>
 import { transactionList } from '@/api/remote-search'
+import Mock from 'mockjs'
 
 export default {
   filters: {
@@ -46,9 +47,18 @@ export default {
   },
   methods: {
     fetchData() {
-      transactionList().then(response => {
-        this.list = response.data.items.slice(0, 8)
-      })
+      // this.list = response.data.items.slice(0, 8)
+      var arr = [];
+      for (var i = 0; i < 8; i++) {
+        arr.push({
+          order_no: '@guid()',
+          timestamp: +Mock.Random.date('T'),
+          username: '@name()',
+          price: '@float(1000, 15000, 0, 2)',
+          'status|1': ['success', 'pending']
+        });
+      }
+      this.list = arr
     }
   }
 }

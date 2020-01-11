@@ -81,6 +81,8 @@
 <script>
 import { validUsername } from '@/utils/validate'
 import SocialSign from './components/SocialSignin'
+import { csrfToken } from '@/api/user'
+import { setCsrfToken } from '@/utils/auth'
 
 export default {
   name: 'Login',
@@ -94,7 +96,7 @@ export default {
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
+      if (value.length < 5) {
         callback(new Error('The password can not be less than 6 digits'))
       } else {
         callback()
@@ -103,7 +105,8 @@ export default {
     return {
       loginForm: {
         username: 'admin',
-        password: '111111'
+        password: 'admin',
+        remember_token: true
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -131,6 +134,9 @@ export default {
   },
   created() {
     // window.addEventListener('storage', this.afterQRScan)
+    csrfToken().then((res) => {
+      setCsrfToken(res.data)
+    })
   },
   mounted() {
     if (this.loginForm.username === '') {

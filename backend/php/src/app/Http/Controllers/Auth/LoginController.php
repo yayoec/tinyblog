@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-// use Illuminate\Http\Response;
+use Illuminate\Http\Response;
 use App\User;
 use Illuminate\Validation\ValidationException;
 use phpDocumentor\Reflection\Types\Mixed_;
@@ -43,6 +43,16 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function showLoginForm(Request $request)
+    {
+        return csrf_token();
+        return [
+            'session_id' => $request->session()->getId(),
+            'session_name' => config('app.name') . '_session',
+            'csrf_token' => csrf_token()
+        ];
+    }
+
     /**
      * 修改默认登录
      * @param Request $request
@@ -52,7 +62,6 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $this->validateLogin($request);
-
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
@@ -64,7 +73,7 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
-            $user = User::where('email', $request->email)->first();
+            $user = User::where('username', $request->username)->first();
             $api_token = substr(uniqid($user->remember_token), -16);
             $user->api_token = $api_token;
             $user->save();
@@ -104,7 +113,8 @@ class LoginController extends Controller
         $this->clearLoginAttempts($request);
 
         return \Response::make([
-            'user' => $user,
+            'code' => 200,
+            'data' => $user,
             'token' => $user->api_token
         ]);
     }
@@ -129,8 +139,8 @@ class LoginController extends Controller
      *
      * @return string
      */
-    public function username()
+    protected function username()
     {
-        return 'email';
+        return 'username';
     }
 }

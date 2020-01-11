@@ -292,7 +292,7 @@ INSERT INTO `tinyblog_relationships` (`cid`, `mid`) VALUES
 
 CREATE TABLE `tinyblog_users` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(32) DEFAULT NULL,
+  `username` varchar(32) DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL,
   `email` varchar(200) DEFAULT NULL,
   `url` varchar(200) DEFAULT NULL,
@@ -310,7 +310,7 @@ CREATE TABLE `tinyblog_users` (
 -- 转存表中的数据 `tinyblog_users`
 --
 
-INSERT INTO `tinyblog_users` (`id`, `name`, `password`, `email`, `url`, `screen_name`, `created`, `activated`, `logged`, `group`, `remember_token`) VALUES
+INSERT INTO `tinyblog_users` (`id`, `username`, `password`, `email`, `url`, `screen_name`, `created`, `activated`, `logged`, `group`, `remember_token`) VALUES
 (1, 'admin', '$2y$10$iOvKstZJVCXbubZDwvGrj.abZW.fq0Lzoxa545lMjhA9OHK3EHvPK', 'webmaster@yourdomain.com', 'http://www.typecho.org', 'admin', 1474092469, 1577169439, 1478149722, 'administrator', '9165dc2807e6c9b9cbeb41ddf4172253');
 
 --
@@ -383,7 +383,7 @@ ALTER TABLE `tinyblog_relationships`
 --
 ALTER TABLE `tinyblog_users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`),
+  ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`);
 
 --

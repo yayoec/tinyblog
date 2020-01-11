@@ -14,7 +14,12 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    $user =  $request->user();
+    $user['roles'] = ['admin'];
+    $user['name'] = $user['username'];
+    $user['avatar'] = 'http://tva3.sinaimg.cn/crop.0.0.180.180.180/5eeebb12jw1e8qgp5bmzyj2050050aa8.jpg';
+    $user['introduction'] = 'screen_name';
+    return ['data' => $user, 'code' => 200];
 });
 
 Route::get('/article', 'ArticleController@index');

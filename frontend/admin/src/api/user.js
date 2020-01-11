@@ -1,24 +1,32 @@
 import request from '@/utils/request'
+import axios from 'axios'
 
 export function login(data) {
   return request({
-    url: '/vue-element-admin/user/login',
+    url: '/login',
     method: 'post',
     data
   })
 }
 
+export function csrfToken() {
+  axios.defaults.withCredentials = true
+  return axios.get(process.env.VUE_APP_BASE_API + '/login', {
+    headers: { accept: '*' }
+  })
+}
+
 export function getInfo(token) {
   return request({
-    url: '/vue-element-admin/user/info',
+    url: '/api/user',
     method: 'get',
-    params: { token }
+    params: { api_token: token }
   })
 }
 
 export function logout() {
   return request({
-    url: '/vue-element-admin/user/logout',
+    url: '/logout',
     method: 'post'
   })
 }
