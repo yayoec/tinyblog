@@ -8,7 +8,7 @@ class Users extends Model
 {
     protected $table;
 
-    protected $primaryKey = 'uid';
+    protected $primaryKey = 'id';
 
     public function __construct()
     {

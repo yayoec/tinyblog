@@ -9,7 +9,7 @@
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
+use tinyblog;
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,13 +27,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tinyblog_comments` (
-  `coid` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `cid` int(10) UNSIGNED DEFAULT '0',
   `created` int(10) UNSIGNED DEFAULT '0',
   `author` varchar(200) DEFAULT NULL,
-  `authorId` int(10) UNSIGNED DEFAULT '0',
-  `ownerId` int(10) UNSIGNED DEFAULT '0',
-  `mail` varchar(200) DEFAULT NULL,
+  `author_id` int(10) UNSIGNED DEFAULT '0',
+  `owner_id` int(10) UNSIGNED DEFAULT '0',
+  `email` varchar(200) DEFAULT NULL,
   `url` varchar(200) DEFAULT NULL,
   `ip` varchar(64) DEFAULT NULL,
   `agent` varchar(200) DEFAULT NULL,
@@ -50,25 +50,25 @@ CREATE TABLE `tinyblog_comments` (
 --
 
 CREATE TABLE `tinyblog_contents` (
-  `cid` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(200) DEFAULT NULL,
-  `slug` varchar(200) DEFAULT NULL,
+  `meta_id` int DEFAULT 0,
   `created` int(10) UNSIGNED DEFAULT '0',
   `modified` int(10) UNSIGNED DEFAULT '0',
   `text` text,
   `order` int(10) UNSIGNED DEFAULT '0',
-  `authorId` int(10) UNSIGNED DEFAULT '0',
+  `author_id` int(10) UNSIGNED DEFAULT '0',
   `template` varchar(32) DEFAULT NULL,
   `type` varchar(16) DEFAULT 'post',
   `status` varchar(16) DEFAULT 'publish',
   `password` varchar(32) DEFAULT NULL,
-  `commentsNum` int(10) UNSIGNED DEFAULT '0',
-  `readNum` int(11) DEFAULT '0',
-  `likeNum` int(11) DEFAULT '0',
-  `supportNum` int(11) DEFAULT '0',
-  `allowComment` char(1) DEFAULT '0',
-  `allowPing` char(1) DEFAULT '0',
-  `allowFeed` char(1) DEFAULT '0',
+  `comments_num` int(10) UNSIGNED DEFAULT '0',
+  `read_num` int(11) DEFAULT '0',
+  `like_num` int(11) DEFAULT '0',
+  `support_num` int(11) DEFAULT '0',
+  `allow_comment` char(1) DEFAULT '0',
+  `allow_ping` char(1) DEFAULT '0',
+  `allow_feed` char(1) DEFAULT '0',
   `parent` int(10) UNSIGNED DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -76,9 +76,8 @@ CREATE TABLE `tinyblog_contents` (
 -- 转存表中的数据 `tinyblog_contents`
 --
 
-INSERT INTO `tinyblog_contents` (`cid`, `title`, `slug`, `created`, `modified`, `text`, `order`, `authorId`, `template`, `type`, `status`, `password`, `commentsNum`, `readNum`, `likeNum`, `supportNum`, `allowComment`, `allowPing`, `allowFeed`, `parent`) VALUES
-(1, 'TODOlist', '1', 1477921493, 1477921512, '<!--markdown-->![QQ20161031-1.png][1]\r\n一直都想弄个博客，在互联网大海有个自己的小角落，终于趁着有空档弄下来了，博客引擎fork自typecho。\r\n\r\n定下心来做这个事情之前选系统选了很久,有基于django的也有wordpress这类老牌博客系统,看了源代码,感觉太重，就失去了继续下去的欲望。还有些轻量级的zblog,emlog之类的源代码也都看了,轻量级是轻量级,但要在上面做些新的开发确实是有点捉急,因为跟我想要的博客还是有点不一样,直到看到了typecho的源码。\r\n\r\ntypecho这个系统有点意思,设计得相当精巧,这个作者在java web领域应该有比较深的浸淫,像java那样去写web站在php中说实话还是比较少见的,后面又在github上看到有个typecho框架不知道作者是不是同一人,当然那个框架的路由系统比这个是要好点，这个路由大概是我见过最丑的调用方式了,你见过把路由配置到数据库然后正则匹配模式调用组件的吗。。。好吧,非要这样,你写到配置文件里开发起来你自己应该也方便多了吧,虽然提供了添加路由的接口。但是真的有点丑。\r\n\r\n这个路由给这个系统扣了不少分,以后找时间一定要把这个改一下,typecho全站把各个功能都分割成一个个小组件,等于说如果你要自己开发新功能就只要开发组件就好了,还不影响它的新功能,它的插件系统其实也是一个组件,这就是这个系统最有特色的地方了。\r\n\r\n不吐槽这些了,typecho终究还是个很优秀的轻量级博客系统,备忘下这个系统以后还需要做的事情吧,其实还有挺多事情要做的。\r\n\r\n首先是相册功能,想要的功能是在后台能添加相册,批量上传图片后自动压缩,读取相机,光圈,GPS等相应信息存档,在首页侧边栏展示小型相册入口,方式不定,也许可以试试nodejs。\r\n\r\n还有评论框的问题,直接调用新浪的评论框还是有点丑,像多说那样的多sns账号登录显示倒是很不错,微信公众平台新浪平台还在申请中,待定。\r\n\r\n第三个是文章专题的浏览体验,目前没去改动内部的翻页和浏览,当然移动设备的支持是肯定的。\r\n\r\n代码已发至github,如有需要请自取,因为改了里面一些组件的代码和文章展示的一些功能还有修复了一个路径问题的bug,这个自开发的主题需要配合我的ajax插件使用,暂时不能直接发至typecho社区,以后改好了一并发上去,当回馈社区吧。\r\n\r\n以上。\r\n\r\n注：主题参考自[简书][2]，博客引擎地址[typecho][3]\r\n\r\n\r\n  [1]: http://blog.inectu.com/usr/uploads/2016/10/3122907263.png\r\n  [2]: http://www.jianshu.com\r\n  [3]: http://www.typecho.org/', 0, 1, NULL, 'post', 'publish', NULL, 0, 1, 1, 0, '1', '1', '1', 0),
-(2, 'TODOlist', '@2', 1477921440, 1577166523, '<!--markdown-->![QQ20161031-1.png][1]\r\n一直都想弄个博客，在互联网大海有个自己的小角落，终于趁着有空档弄下来了，博客引擎fork自typecho。\r\n\r\n定下心来做这个事情之前选系统选了很久,有基于django的也有wordpress这类老牌博客系统,看了源代码,感觉太重，就失去了继续下去的欲望。还有些轻量级的zblog,emlog之类的源代码也都看了,轻量级是轻量级,但要在上面做些新的开发确实是有点捉急,因为跟我想要的博客还是有点不一样,直到看到了typecho的源码。\r\n\r\ntypecho这个系统有点意思,设计得相当精巧,这个作者在java web领域应该有比较深的浸淫,像java那样去写web站在php中说实话还是比较少见的,后面又在github上看到有个typecho框架不知道作者是不是同一人,当然那个框架的路由系统比这个是要好点，这个路由大概是我见过最丑的调用方式了,你见过把路由配置到数据库然后正则匹配模式调用组件的吗。。。好吧,非要这样,你写到配置文件里开发起来你自己应该也方便多了吧,虽然提供了添加路由的接口。但是真的有点丑。\r\n\r\n这个路由给这个系统扣了不少分,以后找时间一定要把这个改一下,typecho全站把各个功能都分割成一个个小组件,等于说如果你要自己开发新功能就只要开发组件就好了,还不影响它的新功能,它的插件系统其实也是一个组件,这就是这个系统最有特色的地方了。\r\n\r\n不吐槽这些了,typecho终究还是个很优秀的轻量级博客系统,备忘下这个系统以后还需要做的事情吧,其实还有挺多事情要做的。\r\n\r\n首先是相册功能,想要的功能是在后台能添加相册,批量上传图片后自动压缩,读取相机,光圈,GPS等相应信息存档,在首页侧边栏展示小型相册入口,方式不定,也许可以试试nodejs。\r\n\r\n还有评论框的问题,直接调用新浪的评论框还是有点丑,像多说那样的多sns账号登录显示倒是很不错,微信公众平台新浪平台还在申请中,待定。\r\n\r\n第三个是文章专题的浏览体验,目前没去改动内部的翻页和浏览,当然移动设备的支持是肯定的。\r\n\r\n代码已发至github,如有需要请自取,因为改了里面一些组件的代码和文章展示的一些功能还有修复了一个路径问题的bug,这个自开发的主题需要配合我的ajax插件使用,暂时不能直接发至typecho社区,以后改好了一并发上去,当回馈社区吧。\r\n\r\n以上。\r\n\r\n注：主题参考自[简书][2]，博客引擎地址[typecho][3]\r\n\r\n\r\n  [1]: http://blog.inectu.com/usr/uploads/2016/10/3122907263.png\r\n  [2]: http://www.jianshu.com\r\n  [3]: http://www.typecho.org/', 0, 1, NULL, 'post_draft', 'publish', NULL, 0, 0, 0, 0, '1', '1', '1', 1);
+INSERT INTO `tinyblog_contents` (`id`, `title`, `meta_id`, `created`, `modified`, `text`, `order`, `author_id`, `template`, `type`, `status`, `password`, `comments_num`, `read_num`, `like_num`, `support_num`, `allow_comment`, `allow_ping`, `allow_feed`, `parent`) VALUES
+(1, 'TODOlist', 1, 1477921493, 1477921512, '<!--markdown-->![QQ20161031-1.png][1]\r\n一直都想弄个博客，在互联网大海有个自己的小角落，终于趁着有空档弄下来了，博客引擎fork自typecho。\r\n\r\n定下心来做这个事情之前选系统选了很久,有基于django的也有wordpress这类老牌博客系统,看了源代码,感觉太重，就失去了继续下去的欲望。还有些轻量级的zblog,emlog之类的源代码也都看了,轻量级是轻量级,但要在上面做些新的开发确实是有点捉急,因为跟我想要的博客还是有点不一样,直到看到了typecho的源码。\r\n\r\ntypecho这个系统有点意思,设计得相当精巧,这个作者在java web领域应该有比较深的浸淫,像java那样去写web站在php中说实话还是比较少见的,后面又在github上看到有个typecho框架不知道作者是不是同一人,当然那个框架的路由系统比这个是要好点，这个路由大概是我见过最丑的调用方式了,你见过把路由配置到数据库然后正则匹配模式调用组件的吗。。。好吧,非要这样,你写到配置文件里开发起来你自己应该也方便多了吧,虽然提供了添加路由的接口。但是真的有点丑。\r\n\r\n这个路由给这个系统扣了不少分,以后找时间一定要把这个改一下,typecho全站把各个功能都分割成一个个小组件,等于说如果你要自己开发新功能就只要开发组件就好了,还不影响它的新功能,它的插件系统其实也是一个组件,这就是这个系统最有特色的地方了。\r\n\r\n不吐槽这些了,typecho终究还是个很优秀的轻量级博客系统,备忘下这个系统以后还需要做的事情吧,其实还有挺多事情要做的。\r\n\r\n首先是相册功能,想要的功能是在后台能添加相册,批量上传图片后自动压缩,读取相机,光圈,GPS等相应信息存档,在首页侧边栏展示小型相册入口,方式不定,也许可以试试nodejs。\r\n\r\n还有评论框的问题,直接调用新浪的评论框还是有点丑,像多说那样的多sns账号登录显示倒是很不错,微信公众平台新浪平台还在申请中,待定。\r\n\r\n第三个是文章专题的浏览体验,目前没去改动内部的翻页和浏览,当然移动设备的支持是肯定的。\r\n\r\n代码已发至github,如有需要请自取,因为改了里面一些组件的代码和文章展示的一些功能还有修复了一个路径问题的bug,这个自开发的主题需要配合我的ajax插件使用,暂时不能直接发至typecho社区,以后改好了一并发上去,当回馈社区吧。\r\n\r\n以上。\r\n\r\n注：主题参考自[简书][2]，博客引擎地址[typecho][3]\r\n\r\n\r\n  [1]: http://blog.inectu.com/usr/uploads/2016/10/3122907263.png\r\n  [2]: http://www.jianshu.com\r\n  [3]: http://www.typecho.org/', 0, 1, NULL, 'post', 'publish', NULL, 0, 1, 1, 0, '1', '1', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -87,7 +86,7 @@ INSERT INTO `tinyblog_contents` (`cid`, `title`, `slug`, `created`, `modified`, 
 --
 
 CREATE TABLE `tinyblog_fields` (
-  `cid` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(200) NOT NULL,
   `type` varchar(8) DEFAULT 'str',
   `str_value` text,
@@ -146,7 +145,7 @@ INSERT INTO `tinyblog_like_record` (`id`, `user_unique_id`, `article_id`, `categ
 --
 
 CREATE TABLE `tinyblog_metas` (
-  `mid` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(200) DEFAULT NULL,
   `slug` varchar(200) DEFAULT NULL,
   `type` varchar(32) NOT NULL,
@@ -160,7 +159,7 @@ CREATE TABLE `tinyblog_metas` (
 -- 转存表中的数据 `tinyblog_metas`
 --
 
-INSERT INTO `tinyblog_metas` (`mid`, `name`, `slug`, `type`, `description`, `count`, `order`, `parent`) VALUES
+INSERT INTO `tinyblog_metas` (`id`, `name`, `slug`, `type`, `description`, `count`, `order`, `parent`) VALUES
 (1, 'CODE', 'code', 'category', 'code', 1, 1, 0);
 
 -- --------------------------------------------------------
@@ -292,25 +291,27 @@ INSERT INTO `tinyblog_relationships` (`cid`, `mid`) VALUES
 --
 
 CREATE TABLE `tinyblog_users` (
-  `uid` int(10) UNSIGNED NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(32) DEFAULT NULL,
   `password` varchar(64) DEFAULT NULL,
-  `mail` varchar(200) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
   `url` varchar(200) DEFAULT NULL,
-  `screenName` varchar(32) DEFAULT NULL,
+  `screen_name` varchar(32) DEFAULT NULL,
   `created` int(10) UNSIGNED DEFAULT '0',
   `activated` int(10) UNSIGNED DEFAULT '0',
   `logged` int(10) UNSIGNED DEFAULT '0',
   `group` varchar(16) DEFAULT 'visitor',
-  `authCode` varchar(64) DEFAULT NULL
+  `remember_token` varchar(64) DEFAULT NULL,
+  `api_token` varchar(64) DEFAULT NULL,
+  `updated_at` varchar(32)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `tinyblog_users`
 --
 
-INSERT INTO `tinyblog_users` (`uid`, `name`, `password`, `mail`, `url`, `screenName`, `created`, `activated`, `logged`, `group`, `authCode`) VALUES
-(1, 'admin', '$P$BGehmJifEnK6o5iFzPFb9SmQiaPqqt.', 'webmaster@yourdomain.com', 'http://www.typecho.org', 'admin', 1474092469, 1577169439, 1478149722, 'administrator', '9165dc2807e6c9b9cbeb41ddf4172253');
+INSERT INTO `tinyblog_users` (`id`, `name`, `password`, `email`, `url`, `screen_name`, `created`, `activated`, `logged`, `group`, `remember_token`) VALUES
+(1, 'admin', '$2y$10$iOvKstZJVCXbubZDwvGrj.abZW.fq0Lzoxa545lMjhA9OHK3EHvPK', 'webmaster@yourdomain.com', 'http://www.typecho.org', 'admin', 1474092469, 1577169439, 1478149722, 'administrator', '9165dc2807e6c9b9cbeb41ddf4172253');
 
 --
 -- Indexes for dumped tables
@@ -320,7 +321,7 @@ INSERT INTO `tinyblog_users` (`uid`, `name`, `password`, `mail`, `url`, `screenN
 -- Indexes for table `tinyblog_comments`
 --
 ALTER TABLE `tinyblog_comments`
-  ADD PRIMARY KEY (`coid`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `cid` (`cid`),
   ADD KEY `created` (`created`);
 
@@ -328,15 +329,14 @@ ALTER TABLE `tinyblog_comments`
 -- Indexes for table `tinyblog_contents`
 --
 ALTER TABLE `tinyblog_contents`
-  ADD PRIMARY KEY (`cid`),
-  ADD UNIQUE KEY `slug` (`slug`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `created` (`created`);
 
 --
 -- Indexes for table `tinyblog_fields`
 --
 ALTER TABLE `tinyblog_fields`
-  ADD PRIMARY KEY (`cid`,`name`),
+  ADD PRIMARY KEY (`id`,`name`),
   ADD KEY `int_value` (`int_value`),
   ADD KEY `float_value` (`float_value`);
 
@@ -357,8 +357,7 @@ ALTER TABLE `tinyblog_like_record`
 -- Indexes for table `tinyblog_metas`
 --
 ALTER TABLE `tinyblog_metas`
-  ADD PRIMARY KEY (`mid`),
-  ADD KEY `slug` (`slug`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tinyblog_options`
@@ -383,9 +382,9 @@ ALTER TABLE `tinyblog_relationships`
 -- Indexes for table `tinyblog_users`
 --
 ALTER TABLE `tinyblog_users`
-  ADD PRIMARY KEY (`uid`),
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`),
-  ADD UNIQUE KEY `mail` (`mail`);
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- 在导出的表使用AUTO_INCREMENT
@@ -395,12 +394,12 @@ ALTER TABLE `tinyblog_users`
 -- 使用表AUTO_INCREMENT `tinyblog_comments`
 --
 ALTER TABLE `tinyblog_comments`
-  MODIFY `coid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- 使用表AUTO_INCREMENT `tinyblog_contents`
 --
 ALTER TABLE `tinyblog_contents`
-  MODIFY `cid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- 使用表AUTO_INCREMENT `tinyblog_img`
 --
@@ -415,7 +414,7 @@ ALTER TABLE `tinyblog_like_record`
 -- 使用表AUTO_INCREMENT `tinyblog_metas`
 --
 ALTER TABLE `tinyblog_metas`
-  MODIFY `mid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- 使用表AUTO_INCREMENT `tinyblog_read_record`
 --
@@ -425,7 +424,7 @@ ALTER TABLE `tinyblog_read_record`
 -- 使用表AUTO_INCREMENT `tinyblog_users`
 --
 ALTER TABLE `tinyblog_users`
-  MODIFY `uid` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

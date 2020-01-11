@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
     ];
 
     /**
@@ -34,6 +34,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'created' => 'datetime',
     ];
+
+    protected $table;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->table = config('app.table_prefix') . "users";
+    }
 }
