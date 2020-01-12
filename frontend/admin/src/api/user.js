@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export function login(data) {
   return request({
-    url: '/login',
+    url: '/login?t=' + new Date().getTime(),
     method: 'post',
     data
   })
