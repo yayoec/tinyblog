@@ -14,14 +14,14 @@ class Article extends JsonResource
      */
     public function toArray($request)
     {
-        $hasImgs = preg_match('/http(.*?)\.(jpg|png|gif)/', $this->text, $matches);
+        $hasImgs = preg_match('/http(.*?)\.(jpg|png|gif)/', $this->content, $matches);
         if($hasImgs){
             $img = $matches[0];
         } else {
             $img = 0;
         }
-        $text = $this->text;
-        preg_match_all('/<p>.*?<\/p>/', $this->text, $textMatches);
+        $text = $this->content;
+        preg_match_all('/<p>.*?<\/p>/', $this->content, $textMatches);
         if (!empty($textMatches[0])){
             if (count($textMatches[0]) > 2){
                 $text = $textMatches[0][0].'......';
@@ -34,7 +34,7 @@ class Article extends JsonResource
             'meta_name' => $this->meta->name,
             'created' => date_format($this->created, 'Y.m.d'),
             'modified' => date_format($this->modified, 'Y.m.d'),
-            'text' => $text,
+            'content' => $text,
             'img' => $img,
             'order' => $this->order,
             'comments_num' => $this->comments_num,

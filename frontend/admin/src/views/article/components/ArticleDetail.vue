@@ -2,8 +2,8 @@
   <div class="createPost-container">
     <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
       <sticky :z-index="10" :class-name="'sub-navbar '+postForm.status">
-        <CommentDropdown v-model="postForm.comment_disabled" />
-        <CategoryDropdown v-model="postForm.category" />
+        <CommentDropdown v-model="postForm.allow_comment" />
+        <CategoryDropdown v-model="postForm.meta_id" />
         <el-button v-loading="loading" style="margin-left: 10px;" type="success" @click="submitForm">
           Publish
         </el-button>
@@ -42,7 +42,7 @@
                 <el-col :span="6">
                   <el-form-item label-width="90px" label="排序:" class="postInfo-container-item">
                     <el-rate
-                      v-model="postForm.importance" 
+                      v-model="postForm.order" 
                       :max="3"
                       :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
                       :low-threshold="1"
@@ -57,7 +57,7 @@
         </el-row>
 
         <el-form-item style="margin-bottom: 40px;" label-width="70px" label="概要:">
-          <el-input v-model="postForm.content_short" :rows="1" type="textarea" class="article-textarea" autosize
+          <el-input v-model="postForm.summary" :rows="1" type="textarea" class="article-textarea" autosize
                     placeholder="请输入概要"
           />
           <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}个字</span>
@@ -84,19 +84,19 @@ import { validURL } from '@/utils/validate'
 import { fetchArticle } from '@/api/article'
 import { searchUser } from '@/api/remote-search'
 import { CommentDropdown, CategoryDropdown } from './Dropdown'
+import { postContent } from '@/api/article'
 
 const defaultForm = {
   status: 'draft',
   title: '', // 文章题目
   content: '', // 文章内容
-  content_short: '', // 文章摘要
-  source_uri: '', // 文章外链
+  summary: '', // 文章摘要
   image_uri: '', // 文章图片
   display_time: undefined, // 前台展示时间
   id: undefined,
-  category: 1,
-  comment_disabled: true,
-  importance: 0
+  meta_id: 1,
+  allow_comment: true,
+  order: 0
 }
 
 export default {
@@ -149,7 +149,7 @@ export default {
   },
   computed: {
     contentShortLength() {
-      return this.postForm.content_short.length
+      return this.postForm.summary.length
     },
     displayTime: {
       // set and get is useful when the data
@@ -181,9 +181,10 @@ export default {
         this.postForm = response.data
 
         // just for test
-        this.postForm.title += `   Article Id:${this.postForm.id}`
-        this.postForm.content_short += `   Article Id:${this.postForm.id}`
-
+        // this.postForm.title += `   Article Id:${this.postForm.id}`
+        // this.postForm.summary += `   Article Id:${this.postForm.id}`
+        this.postForm.allow_comment = Boolean(parseInt(this.postForm.allow_comment)),
+        this.postForm.image_uri = String(this.postForm.image_uri),
         // set tagsview title
         this.setTagsViewTitle()
 
@@ -203,10 +204,12 @@ export default {
       document.title = `${title} - ${this.postForm.id}`
     },
     submitForm() {
-      console.log(this.postForm)
       this.$refs.postForm.validate(valid => {
         if (valid) {
           this.loading = true
+          postContent(this.postForm).then((res) => {
+            console.log(res)
+          })
           this.$notify({
             title: '成功',
             message: '发布文章成功',

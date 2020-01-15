@@ -22,8 +22,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return ['data' => $user, 'code' => 200];
 });
 
-Route::middleware('auth:api')->group('admin', function(Request $request) {
-    Route::get('/metas', 'AdminController@metas');
+Route::middleware('auth:api')->group(function() {
+    Route::get('admin/metas', 'AdminController@metas');
+    Route::post('admin/article', 'AdminController@article');
+    Route::get('admin/article/list', 'AdminController@articleList');
+    Route::get('admin/article/{id}', 'AdminController@getArticle');
 });
 
 Route::get('/article', 'ArticleController@index');

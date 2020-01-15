@@ -189,7 +189,7 @@ export const asyncRoutes = [
         hidden: true
       },
       {
-        path: '文章列表',
+        path: 'list',
         component: () => import('@/views/article/list'),
         name: 'ArticleList',
         meta: { title: '文章列表', icon: 'list' }

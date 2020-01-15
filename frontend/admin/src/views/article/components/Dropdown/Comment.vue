@@ -1,17 +1,17 @@
 <template>
   <el-dropdown :show-timeout="100" trigger="click">
     <el-button plain>
-      {{ !comment_disabled?'评论: 打开':'评论: 关闭' }}
+      {{ allow_comment?'评论: 打开':'评论: 关闭' }}
       <i class="el-icon-caret-bottom el-icon--right"></i>
     </el-button>
     <el-dropdown-menu slot="dropdown" class="no-padding">
       <el-dropdown-item>
-        <el-radio-group v-model="comment_disabled" style="padding: 10px;">
+        <el-radio-group v-model="allow_comment" style="padding: 10px;">
           <el-radio :label="true">
-            关闭评论
+            打开评论
           </el-radio>
           <el-radio :label="false">
-            打开评论
+            关闭评论
           </el-radio>
         </el-radio-group>
       </el-dropdown-item>
@@ -28,7 +28,7 @@ export default {
     }
   },
   computed: {
-    comment_disabled: {
+    allow_comment: {
       get() {
         return this.value
       },

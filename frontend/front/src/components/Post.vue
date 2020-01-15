@@ -34,7 +34,8 @@
             class="post-content"
             itemprop="articleBody"
           >
-            {{ article.text }}
+            <div v-html="article.content">
+            </div>
           </div>
           <div class="copyright">
             <a><i class="fa fa-copyright"></i> 著作权归作者所有,如需转载请联系作者授权</a>

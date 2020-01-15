@@ -41,7 +41,7 @@ class CategoryController extends Controller
         $table = config('app.table_prefix') . 'contents';
         $dates = DB::table($table)->select(DB::raw('date_format(FROM_UNIXTIME(created), "%Y/%m") as archive_date'))
             ->where('type', '=', 'post')
-            ->where('status', '=', 'publish')
+            ->where('status', '=', 'published')
             ->where('created', '<', time())
             ->orderBy('created', 'desc')
             ->get();

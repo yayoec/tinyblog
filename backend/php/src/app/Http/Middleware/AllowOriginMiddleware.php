@@ -33,6 +33,6 @@ class AllowOriginMiddleware
 //            $response->headers->add('Access-Control-Allow-Methods', 'GET, POST, PATCH, PUT, OPTIONS');
 //            $response->headers->add('Access-Control-Allow-Credentials', 'true');
 //        }
-        return $response;
+//        return $response;
     }
 }
