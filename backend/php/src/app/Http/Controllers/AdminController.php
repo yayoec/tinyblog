@@ -61,4 +61,8 @@ class AdminController extends Controller
             'data' => Content::find($article_id)
         ];
     }
+
+    public function upload(Request $request) {
+        
+    }
 }
