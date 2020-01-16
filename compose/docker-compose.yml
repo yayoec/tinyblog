@@ -40,3 +40,15 @@ services:
     ports:
       - "3306:3306"
     # container_name: mysql
+
+  minio:
+    image: minio/minio
+    volumes:
+      - /tmp/data/minio:/data
+    command: server /data
+    restart: always
+    environment:
+      MINIO_ACCESS_KEY: "admin"
+      MINIO_SECRET_KEY: "admin123"
+    ports:
+      - "9001:9000"

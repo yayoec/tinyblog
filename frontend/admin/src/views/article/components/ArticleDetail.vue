@@ -42,7 +42,7 @@
                 <el-col :span="6">
                   <el-form-item label-width="90px" label="排序:" class="postInfo-container-item">
                     <el-rate
-                      v-model="postForm.order" 
+                      v-model="postForm.order"
                       :max="3"
                       :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
                       :low-threshold="1"
@@ -80,9 +80,9 @@ import Tinymce from '@/components/Tinymce'
 import Upload from '@/components/Upload/SingleImage3'
 import MDinput from '@/components/MDinput'
 import Sticky from '@/components/Sticky' // 粘性header组件
-import { validURL } from '@/utils/validate'
+// import { validURL } from '@/utils/validate'
 import { fetchArticle } from '@/api/article'
-import { searchUser } from '@/api/remote-search'
+// import { searchUser } from '@/api/remote-search'
 import { CommentDropdown, CategoryDropdown } from './Dropdown'
 import { postContent } from '@/api/article'
 
@@ -120,27 +120,27 @@ export default {
         callback()
       }
     }
-    const validateSourceUri = (rule, value, callback) => {
-      if (value) {
-        if (validURL(value)) {
-          callback()
-        } else {
-          this.$message({
-            message: '外链url填写不正确',
-            type: 'error'
-          })
-          callback(new Error('外链url填写不正确'))
-        }
-      } else {
-        callback()
-      }
-    }
+    // const validateSourceUri = (rule, value, callback) => {
+    //   if (value) {
+    //     if (validURL(value)) {
+    //       callback()
+    //     } else {
+    //       this.$message({
+    //         message: '外链url填写不正确',
+    //         type: 'error'
+    //       })
+    //       callback(new Error('外链url填写不正确'))
+    //     }
+    //   } else {
+    //     callback()
+    //   }
+    // }
     return {
       postForm: Object.assign({}, defaultForm),
       loading: false,
       userListOptions: [],
       rules: {
-        //image_uri: [{ validator: validateRequire }],
+        // image_uri: [{ validator: validateRequire }],
         title: [{ validator: validateRequire }],
         content: [{ validator: validateRequire }]
       },
@@ -183,8 +183,8 @@ export default {
         // just for test
         // this.postForm.title += `   Article Id:${this.postForm.id}`
         // this.postForm.summary += `   Article Id:${this.postForm.id}`
-        this.postForm.allow_comment = Boolean(parseInt(this.postForm.allow_comment)),
-        this.postForm.image_uri = String(this.postForm.image_uri),
+        this.postForm.allow_comment = Boolean(parseInt(this.postForm.allow_comment))
+        this.postForm.image_uri = this.postForm.image_uri === 'null' ? '' : this.postForm.image_uri
         // set tagsview title
         this.setTagsViewTitle()
 

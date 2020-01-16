@@ -7,6 +7,7 @@
       :on-success="handleImageSuccess"
       class="image-uploader"
       drag
+      :http-request="myUpload"
       action="https://httpbin.org/post"
     >
       <i class="el-icon-upload"></i>
@@ -15,7 +16,7 @@
       </div>
     </el-upload>
     <div class="image-preview image-app-preview">
-      <div v-show="imageUrl.length>1" class="image-preview-wrapper">
+      <div v-show="!!imageUrl && imageUrl.length>1" class="image-preview-wrapper">
         <img :src="imageUrl" />
         <div class="image-preview-action">
           <i class="el-icon-delete" @click="rmImage"></i>
@@ -23,7 +24,7 @@
       </div>
     </div>
     <div class="image-preview">
-      <div v-show="imageUrl.length>1" class="image-preview-wrapper">
+      <div v-show="!!imageUrl && imageUrl.length>1" class="image-preview-wrapper">
         <img :src="imageUrl" />
         <div class="image-preview-action">
           <i class="el-icon-delete" @click="rmImage"></i>
@@ -34,8 +35,9 @@
 </template>
 
 <script>
-import { getToken } from '@/api/qiniu'
-
+// import { getToken } from '@/api/qiniu'
+import { getToken } from '@/utils/auth'
+import { myUpload } from '@/api/upload'
 export default {
   name: 'SingleImageUpload3',
   props: {
@@ -66,21 +68,23 @@ export default {
       this.emitInput(file.files.file)
     },
     beforeUpload() {
-      const _self = this
-      return new Promise((resolve, reject) => {
-        getToken().then(response => {
-          const key = response.data.qiniu_key
-          const token = response.data.qiniu_token
-          _self._data.dataObj.token = token
-          _self._data.dataObj.key = key
-          this.tempUrl = response.data.qiniu_url
-          resolve(true)
-        }).catch(err => {
-          console.log(err)
-          reject(false)
-        })
-      })
-    }
+      this.dataObj.token = getToken()
+      // const _self = this
+      // return new Promise((resolve, reject) => {
+      //   getToken().then(response => {
+      //     const key = response.data.qiniu_key
+      //     const token = response.data.qiniu_token
+      //     _self._data.dataObj.token = token
+      //     _self._data.dataObj.key = key
+      //     this.tempUrl = response.data.qiniu_url
+      //     resolve(true)
+      //   }).catch(err => {
+      //     console.log(err)
+      //     reject(false)
+      //   })
+      // })
+    },
+    myUpload: myUpload
   }
 }
 </script>

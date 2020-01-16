@@ -7,7 +7,7 @@
     <el-dropdown-menu slot="dropdown" class="no-padding">
       <el-dropdown-item>
         <el-radio-group v-model="meta_id" style="padding: 10px;">
-          <el-radio v-for="item in categorys" :key="item.id" :label="item.name" @change="metaName(item.name)">
+          <el-radio v-for="item in categorys" :key="item.id" :label="item.id" @change="metaName(item.name)">
             {{ item.name }}
           </el-radio>
         </el-radio-group>
