@@ -221,7 +221,7 @@ export const asyncRoutes = [
         hidden: true
       },
       {
-        path: '分类列表',
+        path: 'list',
         component: () => import('@/views/category/list'),
         name: 'CategoryList',
         meta: { title: '分类列表', icon: 'list' }

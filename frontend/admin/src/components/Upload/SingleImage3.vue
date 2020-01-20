@@ -64,8 +64,9 @@ export default {
     emitInput(val) {
       this.$emit('input', val)
     },
-    handleImageSuccess(file) {
-      this.emitInput(file.files.file)
+    handleImageSuccess(res) {
+      console.log(res.data)
+      this.emitInput(res.data)
     },
     beforeUpload() {
       this.dataObj.token = getToken()
