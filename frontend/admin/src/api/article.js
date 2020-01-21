@@ -15,6 +15,13 @@ export function fetchArticle(id) {
   })
 }
 
+export function fetchMeta(id) {
+  return request({
+    url: '/api/admin/meta/' + id,
+    method: 'get'
+  })
+}
+
 export function fetchPv(pv) {
   return request({
     url: '/article/pv',
@@ -49,6 +56,14 @@ export function metas() {
 export function postContent(data) {
   return request({
     url: '/api/admin/article',
+    method: 'post',
+    data
+  })
+}
+
+export function postMeta(data) {
+  return request({
+    url: '/api/admin/meta',
     method: 'post',
     data
   })

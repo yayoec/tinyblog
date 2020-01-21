@@ -33,7 +33,7 @@ services:
   mysql:
     image: mysql:latest
     volumes:
-      - /tmp/data/mysql:/var/lib/mysql
+      - /Users/yanjoe/Documents/data/mysql:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -44,7 +44,7 @@ services:
   minio:
     image: minio/minio
     volumes:
-      - /tmp/data/minio:/data
+      - /Users/yanjoe/Documents/data/minio:/data
     command: server /data
     restart: always
     environment:

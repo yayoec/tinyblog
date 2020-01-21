@@ -153,6 +153,7 @@ class ComposerStaticInit747d9c8f63c7777a0517a77704ce34e5
         ),
         'A' => 
         array (
+            'Aws\\Laravel\\' => 12,
             'Aws\\' => 4,
             'App\\' => 4,
         ),
@@ -416,6 +417,10 @@ class ComposerStaticInit747d9c8f63c7777a0517a77704ce34e5
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
+        ),
+        'Aws\\Laravel\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/aws/aws-sdk-php-laravel/src',
         ),
         'Aws\\' => 
         array (
@@ -882,6 +887,8 @@ class ComposerStaticInit747d9c8f63c7777a0517a77704ce34e5
         'Aws\\LakeFormation\\LakeFormationClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LakeFormation/LakeFormationClient.php',
         'Aws\\Lambda\\Exception\\LambdaException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Lambda/Exception/LambdaException.php',
         'Aws\\Lambda\\LambdaClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Lambda/LambdaClient.php',
+        'Aws\\Laravel\\AwsFacade' => __DIR__ . '/..' . '/aws/aws-sdk-php-laravel/src/AwsFacade.php',
+        'Aws\\Laravel\\AwsServiceProvider' => __DIR__ . '/..' . '/aws/aws-sdk-php-laravel/src/AwsServiceProvider.php',
         'Aws\\LexModelBuildingService\\Exception\\LexModelBuildingServiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LexModelBuildingService/Exception/LexModelBuildingServiceException.php',
         'Aws\\LexModelBuildingService\\LexModelBuildingServiceClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LexModelBuildingService/LexModelBuildingServiceClient.php',
         'Aws\\LexRuntimeService\\Exception\\LexRuntimeServiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LexRuntimeService/Exception/LexRuntimeServiceException.php',

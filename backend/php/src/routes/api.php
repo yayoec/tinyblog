@@ -27,6 +27,9 @@ Route::middleware('auth:api')->group(function() {
     Route::post('admin/article', 'AdminController@article');
     Route::get('admin/article/list', 'AdminController@articleList');
     Route::get('admin/article/{id}', 'AdminController@getArticle');
+    Route::post('admin/upload', 'AdminController@upload');
+    Route::post('admin/meta', 'AdminController@meta');
+    Route::get('admin/meta/{id}', 'AdminController@getMeta');
 });
 
 Route::get('/article', 'ArticleController@index');
