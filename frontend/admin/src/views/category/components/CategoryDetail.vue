@@ -2,7 +2,6 @@
   <div class="createPost-container">
     <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container">
       <sticky :z-index="10" :class-name="'sub-navbar '+postForm.status">
-        <PlatformDropdown v-model="postForm.platforms" />
         <el-button v-loading="loading" style="margin-left: 10px;" type="success" @click="submitForm">
           Publish
         </el-button>
@@ -10,18 +9,24 @@
 
       <div class="createPost-main-container">
         <el-row>
+          <el-tag size="medium">
+            类型：
+          </el-tag>
+          <CategoryTypeDropdown v-model="postForm.type" />
+        </el-row>
+        <el-row>
           <el-col :span="24">
             <el-form-item style="margin-bottom: 40px;" prop="name">
               <MDinput v-model="postForm.name" :maxlength="100" name="name" required>
-                分类名
+                名称
               </MDinput>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="24">
-            <el-form-item style="margin-bottom: 40px;" prop="detail">
-              <MDinput v-model="postForm.detail" :maxlength="100" name="detail" required>
+            <el-form-item style="margin-bottom: 40px;" prop="description">
+              <MDinput v-model="postForm.description" :maxlength="100" name="description" required>
                 说明
               </MDinput>
             </el-form-item>
@@ -52,18 +57,21 @@
 
 <script>
 import Sticky from '@/components/Sticky'
-import { fetchArticle, postMeta } from '@/api/article'
+import MDinput from '@/components/MDinput'
+import CategoryTypeDropdown from './CategoryTypeDropdown'
+import { fetchMeta, postMeta } from '@/api/article'
 
 const defaultForm = {
-  name: '默认分类',
-  description: '分类说明',
+  name: '',
+  description: '',
+  type: 'category',
   order: 1,
-  parent: 0
+  parent: '0'
 }
 
 export default {
-  name: 'ArticleDetail',
-  components: { Sticky },
+  name: 'CategoryDetail',
+  components: { Sticky, MDinput, CategoryTypeDropdown },
   props: {
     isEdit: {
       type: Boolean,
