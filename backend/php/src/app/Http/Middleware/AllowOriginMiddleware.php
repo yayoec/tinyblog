@@ -15,7 +15,12 @@ class AllowOriginMiddleware
      */
     public function handle($request, Closure $next)
     {
-        return $next($request)->header('Access-Control-Allow-Origin', 'http://localhost:9528')
+        $allow_origin = 'http://localhost:8080';
+        preg_match('/^(https?:\/\/)?([^\/]+)/i', $request->url(), $match);
+        if (in_array($match[2], config('app.allow_origin'))) {
+            $allow_origin = $match[1] . $match[2];
+        }
+        return $next($request)->header('Access-Control-Allow-Origin', $allow_origin)
             ->header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE')
             ->header('Access-Control-Allow-Headers', 'Origin, Content-Type, Cookie, X-CSRF-TOKEN, Accept, Authorization, X-XSRF-TOKEN')
             ->header('Access-Control-Expose-Headers', 'Authorization, authenticated')

@@ -59,6 +59,11 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'allow_origin' => [
+        'localhost:9528',
+        'localhost:8080'
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

@@ -154,7 +154,9 @@ CREATE TABLE `tinyblog_metas` (
   `description` varchar(200) DEFAULT NULL,
   `count` int(10) UNSIGNED DEFAULT '0',
   `order` int(10) UNSIGNED DEFAULT '0',
-  `parent` int(10) UNSIGNED DEFAULT '0'
+  `parent` int(10) UNSIGNED DEFAULT '0',
+  `created_at` datetime,
+  `updated_at` datetime
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --

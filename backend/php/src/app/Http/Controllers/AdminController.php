@@ -52,6 +52,7 @@ class AdminController extends Controller
             $post = new Metas();
         }
         $post->name = $meta['name'];
+        $post->type = $meta['type'];
         $post->description = $meta['description'];
         $post->order = $meta['order'];
         $post->parent = $meta['parent'];
