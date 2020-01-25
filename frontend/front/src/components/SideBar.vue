@@ -183,9 +183,9 @@ export default {
   },
   mounted() {
     if (!this.$store.getters.hasMetas) {
-      metas().then((result) => {
-        this.categorys = result.data
+      metas().then(result => {
         this.$store.commit('setMetas', result.data)
+        this.categorys = result.data
       }).catch((err) => {
         console.log(err)
       })

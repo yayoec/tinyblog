@@ -68,3 +68,33 @@ export function postMeta(data) {
     data
   })
 }
+
+export function fetchUserSettings() {
+  return request({
+    url: '/api/admin/user/settings',
+    method: 'get'
+  })
+}
+
+export function postUserSettings(data) {
+  return request({
+    url: '/api/admin/user/settings',
+    method: 'post',
+    data
+  })
+}
+
+export function fetchSiteSettings() {
+  return request({
+    url: '/api/admin/site/settings',
+    method: 'get'
+  })
+}
+
+export function postSiteSettings(data) {
+  return request({
+    url: '/api/admin/site/settings',
+    method: 'post',
+    data
+  })
+}

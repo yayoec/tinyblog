@@ -12,8 +12,9 @@ const store = new Vuex.Store({
   mutations: {
     setMetas(state, metas) {
       if (typeof metas === 'object') {
-        for (var meta of metas) {
-          Vue.set(state.metas, meta.id, meta)
+        for (var index in metas) {
+          // Vue.set(state.metas, metas[index].id, metas[index])
+          state.metas[metas[index].id] = metas[index]
         }
       }
     },
@@ -25,6 +26,7 @@ const store = new Vuex.Store({
   },
   getters: {
     getMetas: state => {
+      console.log(state.metas)
       return Object.values(state.metas)
     },
     getMetaById: state => (metaId) => {

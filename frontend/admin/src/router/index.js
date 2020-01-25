@@ -231,7 +231,7 @@ export const asyncRoutes = [
   {
     path: '/setting',
     component: Layout,
-    redirect: '/article/list',
+    redirect: '/setting/site',
     name: 'Settings',
     meta: {
       title: '设置',
@@ -240,13 +240,13 @@ export const asyncRoutes = [
     children: [
       {
         path: 'site',
-        component: () => import('@/views/web-setting/create'),
+        component: () => import('@/views/web-setting/site'),
         name: 'site-setting',
         meta: { title: '站点设置', icon: 'edit' }
       },
       {
         path: 'user',
-        component: () => import('@/views/web-setting/list'),
+        component: () => import('@/views/web-setting/user'),
         name: 'user-setting',
         meta: { title: '用户设置', icon: 'peoples' }
       }

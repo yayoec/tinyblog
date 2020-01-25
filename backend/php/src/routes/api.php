@@ -30,6 +30,10 @@ Route::middleware('auth:api')->group(function() {
     Route::post('admin/upload', 'AdminController@upload');
     Route::post('admin/meta', 'AdminController@meta');
     Route::get('admin/meta/{id}', 'AdminController@getMeta');
+    Route::get('admin/user/settings', 'AdminController@fetchUserSettings');
+    Route::post('admin/user/settings', 'AdminController@postUserSettings');
+    Route::get('admin/site/settings', 'AdminController@fetchSiteSettings');
+    Route::post('admin/site/settings', 'AdminController@postSiteSettings');
 });
 
 Route::get('/article', 'ArticleController@index');

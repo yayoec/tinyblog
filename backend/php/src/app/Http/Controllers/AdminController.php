@@ -111,4 +111,35 @@ class AdminController extends Controller
             'data' => Metas::find($meta_id)
         ];
     }
+
+    public function fetchUserSettings() {
+
+    }
+
+    public function postUserSettings(Request $request) {
+        $user_settings = $request->post();
+        if (isset($meta['id']) && !empty($meta['id'])) {
+            $post = Metas::find($meta['id']);
+        } else {
+            $post = new Metas();
+        }
+        $post->name = $meta['name'];
+        $post->type = $meta['type'];
+        $post->description = $meta['description'];
+        $post->order = $meta['order'];
+        $post->parent = $meta['parent'];
+        $new = $post->save($meta);
+        return [
+            'code' => 200,
+            'data' => $new
+        ];
+    }
+
+    public function fetchSiteSettings() {
+
+    }
+
+    public function postSiteSettings(Request $request) {
+        $site_settings = $request->post();
+    }
 }
