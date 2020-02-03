@@ -13,8 +13,8 @@ const store = new Vuex.Store({
     setMetas(state, metas) {
       if (typeof metas === 'object') {
         for (var index in metas) {
-          // Vue.set(state.metas, metas[index].id, metas[index])
-          state.metas[metas[index].id] = metas[index]
+          Vue.set(state.metas, metas[index].id, metas[index])
+          // state.metas[metas[index].id] = metas[index]
         }
       }
     },
@@ -26,7 +26,6 @@ const store = new Vuex.Store({
   },
   getters: {
     getMetas: state => {
-      console.log(state.metas)
       return Object.values(state.metas)
     },
     getMetaById: state => (metaId) => {

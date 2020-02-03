@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,21 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     $user =  $request->user();
+    $table_name = config('app.table_prefix') . "options";
+    $result = DB::table($table_name)
+        ->whereIn('name', ['github', 'weibo', 'avatar', 'nickname', 'slogan'])->get();
+    $res = [];
+    collect($result)->map(function ($val) use (& $res) {
+        $res[$val->name] = $val->value;
+    });
     $user['roles'] = ['admin'];
     $user['name'] = $user['username'];
-    $user['avatar'] = 'http://tva3.sinaimg.cn/crop.0.0.180.180.180/5eeebb12jw1e8qgp5bmzyj2050050aa8.jpg';
+    if (isset($res['avatar']))
+    {
+        $user['avatar'] = $res['avatar'];
+    } else {
+        $user['avatar'] = 'http://tva3.sinaimg.cn/crop.0.0.180.180.180/5eeebb12jw1e8qgp5bmzyj2050050aa8.jpg';
+    }
     $user['introduction'] = 'screen_name';
     return ['data' => $user, 'code' => 200];
 });

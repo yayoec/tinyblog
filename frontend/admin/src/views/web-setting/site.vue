@@ -91,7 +91,9 @@ export default {
   methods: {
     fetchData() {
       fetchSiteSettings().then(response => {
-        this.postForm = response.data
+        if (response.data.length !== 0 || Object.keys(response.data).length !== 0) {
+          this.postForm = response.data
+        }
 
         // set tagsview title
         this.setTagsViewTitle()
@@ -104,12 +106,12 @@ export default {
     },
     setTagsViewTitle() {
       const title = 'Edit SiteSettings'
-      const route = Object.assign({}, this.tempRoute, { title: `${title}-${this.postForm.id}` })
+      const route = Object.assign({}, this.tempRoute, { title: `${title}` })
       this.$store.dispatch('tagsView/updateVisitedView', route)
     },
     setPageTitle() {
       const title = 'Edit SiteSettings'
-      document.title = `${title} - ${this.postForm.id}`
+      document.title = `${title}`
     },
     submitForm() {
       this.$refs.postForm.validate(valid => {

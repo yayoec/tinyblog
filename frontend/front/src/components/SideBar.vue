@@ -73,12 +73,12 @@
 
             </h1>
             <div id="wb_button">
-              <wb:follow-button
+              <!-- <wb:follow-button
                 uid="1592703762"
                 type="gray_2"
                 width="136"
                 height="24"
-              ></wb:follow-button>
+              ></wb:follow-button> -->
             </div>
 
             <p class="header-subtitle">undefined</p>

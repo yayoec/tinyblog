@@ -39,10 +39,10 @@ class CategoryController extends Controller
 
     public function archiveList() {
         $table = config('app.table_prefix') . 'contents';
-        $dates = DB::table($table)->select(DB::raw('date_format(FROM_UNIXTIME(created), "%Y/%m") as archive_date'))
+        $dates = DB::table($table)->select(DB::raw('date_format(created, "%Y/%m") as archive_date'))
             ->where('type', '=', 'post')
             ->where('status', '=', 'published')
-            ->where('created', '<', time())
+            ->where('created', '<', date('Y-m-d H:i:s'))
             ->orderBy('created', 'desc')
             ->get();
         $res = [];

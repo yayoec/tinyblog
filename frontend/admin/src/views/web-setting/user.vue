@@ -39,6 +39,7 @@
 <script>
 import Sticky from '@/components/Sticky'
 import MDinput from '@/components/MDinput'
+import Upload from '@/components/Upload/SingleImage2'
 import { fetchUserSettings, postUserSettings } from '@/api/article'
 
 const defaultForm = {
@@ -49,7 +50,7 @@ const defaultForm = {
 
 export default {
   name: 'UserSettings',
-  components: { Sticky, MDinput },
+  components: { Sticky, MDinput, Upload },
   props: {
     isEdit: {
       type: Boolean,
@@ -101,13 +102,13 @@ export default {
       })
     },
     setTagsViewTitle() {
-      const title = 'Edit Category'
-      const route = Object.assign({}, this.tempRoute, { title: `${title}-${this.postForm.id}` })
+      const title = 'Edit User settings'
+      const route = Object.assign({}, this.tempRoute, { title: `${title}-${this.postForm.nickname}` })
       this.$store.dispatch('tagsView/updateVisitedView', route)
     },
     setPageTitle() {
-      const title = 'Edit Category'
-      document.title = `${title} - ${this.postForm.id}`
+      const title = 'Edit User settings'
+      document.title = `${title} - ${this.postForm.nickname}`
     },
     submitForm() {
       this.$refs.postForm.validate(valid => {

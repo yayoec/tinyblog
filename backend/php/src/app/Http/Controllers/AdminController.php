@@ -8,6 +8,7 @@ use App\Models\Metas;
 use Illuminate\Http\Request;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -113,33 +114,78 @@ class AdminController extends Controller
     }
 
     public function fetchUserSettings() {
-
+        $table_name = config('app.table_prefix') . "options";
+        $result = DB::table($table_name)
+            ->whereIn('name', ['avatar', 'nickname', 'slogan'])->get();
+        $res = [];
+        collect($result)->map(function ($val) use (& $res) {
+            $res[$val->name] = $val->value;
+        });
+        return [
+            'code' => 200,
+            'data' => $res
+        ];
     }
 
     public function postUserSettings(Request $request) {
         $user_settings = $request->post();
-        if (isset($meta['id']) && !empty($meta['id'])) {
-            $post = Metas::find($meta['id']);
-        } else {
-            $post = new Metas();
+        $table_name = config('app.table_prefix') . "options";
+        if (isset($user_settings['avatar']) && !empty($user_settings['avatar'])) {
+            DB::table($table_name)->updateOrInsert(
+                ['name' => 'avatar'],
+                ['value' => $user_settings['avatar']]
+            );
         }
-        $post->name = $meta['name'];
-        $post->type = $meta['type'];
-        $post->description = $meta['description'];
-        $post->order = $meta['order'];
-        $post->parent = $meta['parent'];
-        $new = $post->save($meta);
+        if (isset($user_settings['nickname']) && !empty($user_settings['nickname'])) {
+            DB::table($table_name)->updateOrInsert(
+                ['name' => 'nickname'],
+                ['value' => $user_settings['nickname']]
+            );
+        }
+        if (isset($user_settings['slogan']) && !empty($user_settings['slogan'])) {
+            DB::table($table_name)->updateOrInsert(
+                ['name' => 'slogan'],
+                ['value' => $user_settings['slogan']]
+            );
+        }
         return [
             'code' => 200,
-            'data' => $new
+            'data' => null
         ];
     }
 
     public function fetchSiteSettings() {
-
+        $table_name = config('app.table_prefix') . "options";
+        $result = DB::table($table_name)
+            ->whereIn('name', ['github', 'weibo'])->get();
+        $res = [];
+        collect($result)->map(function ($val) use (& $res) {
+            $res[$val->name] = $val->value;
+        });
+        return [
+            'code' => 200,
+            'data' => $res
+        ];
     }
 
     public function postSiteSettings(Request $request) {
         $site_settings = $request->post();
+        $table_name = config('app.table_prefix') . "options";
+        if (isset($site_settings['github']) && !empty($site_settings['github'])) {
+            DB::table($table_name)->updateOrInsert(
+                ['name' => 'github'],
+                ['value' => $site_settings['github']]
+            );
+        }
+        if (isset($site_settings['weibo']) && !empty($site_settings['weibo'])) {
+            DB::table($table_name)->updateOrInsert(
+                ['name' => 'weibo'],
+                ['value' => $site_settings['weibo']]
+            );
+        }
+        return [
+            'code' => 200,
+            'data' => null
+        ];
     }
 }

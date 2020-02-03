@@ -17,7 +17,7 @@ class AllowOriginMiddleware
     {
         $allow_origin = 'http://localhost:8080';
         preg_match('/^(https?:\/\/)?([^\/]+)/i', $request->server('HTTP_ORIGIN'), $match);
-        if (in_array($match[2], config('app.allow_origin'))) {
+        if (isset($match[2]) && in_array($match[2], config('app.allow_origin'))) {
             $allow_origin = $match[1] . $match[2];
         }
         return $next($request)->header('Access-Control-Allow-Origin', $allow_origin)
