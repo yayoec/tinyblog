@@ -74,7 +74,7 @@ class LoginController extends Controller
 
         if ($this->attemptLogin($request)) {
             $user = User::where('username', $request->username)->first();
-            $api_token = substr(uniqid($user->remember_token), -16);
+            $api_token = substr(uniqid(), -16);
             $user->api_token = $api_token;
             $user->save();
             return $this->sendLoginResponse($request, $user);

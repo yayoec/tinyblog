@@ -17,6 +17,10 @@ export function archives() {
   return axios.get(URI + '/api/archive/dates')
 }
 
+export function infos() {
+  return axios.get(URI + '/api/infos')
+}
+
 export function archiveArticles(year, month) {
   return axios.get(URI + '/api/archive/' + year + '/' + month)
 }

@@ -498,7 +498,7 @@ input.search-query {
 /*show article*/
 #article-container{
 	position:relative;
-	width:700px;
+	width:800px;
 	margin-right:auto;
 	margin-left:auto;
 }
@@ -999,7 +999,7 @@ article .meta-bottom {
 /**start sidebar nav detail**/
 .navdetail>div{
 	background: #fff;
-    width: 23%;
+    width: 20%;
     position: fixed;
     left:45px;
     opacity: 1;
@@ -1206,8 +1206,6 @@ article .meta-bottom {
 }
 .navdetail #header {
     width: 100%;
-    height: 300px;
-    position: relative;
     border-bottom: 1px solid color-border;
 }
 .navdetail #header .profilepic {
@@ -1258,7 +1256,7 @@ article .meta-bottom {
     width: 100%;
     position: absolute;
     transition: transform .3s ease-in;
-    top:350px;
+    /* top:350px; */
     left:12px;
 }
 .header-nav .social {

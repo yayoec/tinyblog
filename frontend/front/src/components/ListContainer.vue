@@ -61,7 +61,7 @@
             class="post-content"
             itemprop="articleBody"
           >
-            {{ article.text }}
+            {{ article.summary }}
           </div>
           <div class="list-footer">
             <span>

@@ -25,8 +25,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     });
     $user['roles'] = ['admin'];
     $user['name'] = $user['username'];
-    if (isset($res['avatar']))
-    {
+    if (isset($res['avatar'])) {
         $user['avatar'] = $res['avatar'];
     } else {
         $user['avatar'] = 'http://tva3.sinaimg.cn/crop.0.0.180.180.180/5eeebb12jw1e8qgp5bmzyj2050050aa8.jpg';
@@ -49,6 +48,7 @@ Route::middleware('auth:api')->group(function() {
     Route::post('admin/site/settings', 'AdminController@postSiteSettings');
 });
 
+Route::get('/infos', 'InfosController@infos');
 Route::get('/article', 'ArticleController@index');
 Route::get('/articles', 'ArticleController@articleList');
 Route::get('/article/{articleId}', 'ArticleController@article');

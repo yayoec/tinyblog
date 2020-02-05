@@ -62,34 +62,26 @@
             >
 
               <img
-                src="http://tva3.sinaimg.cn/crop.0.0.180.180.180/5eeebb12jw1e8qgp5bmzyj2050050aa8.jpg"
+                :src="avatar"
                 class="js-avatar"
               />
 
             </a>
 
             <h1 class="header-author">
-              <a href="/">沙鱼</a>
+              <a :href="weibo">{{ nickname }}</a>
 
             </h1>
-            <div id="wb_button">
-              <!-- <wb:follow-button
-                uid="1592703762"
-                type="gray_2"
-                width="136"
-                height="24"
-              ></wb:follow-button> -->
-            </div>
 
-            <p class="header-subtitle">undefined</p>
+            <p class="header-subtitle">{{ slogan }}</p>
 
             <nav class="header-nav">
               <div class="social">
 
                 <a
+                  :href="github"
                   class="github"
                   target="_blank"
-                  href="https://github.com/yayoec"
                   title="github"
                 >
 
@@ -98,22 +90,22 @@
                 </a>
 
                 <a
+                  :href="weibo"
                   class="weibo"
                   target="_blank"
-                  href="http://weibo.com/1592703762"
                   title="weibo"
                 >
                   <i class="fa fa-weibo"></i>
                 </a>
 
-                <a
+                <!-- <a
                   class="rss"
                   target="_blank"
                   href="<?php $this->options->feedUrl(); ?>"
                   title="rss"
                 >
                   <i class="fa fa-rss"></i>
-                </a>
+                </a> -->
 
               </div>
             </nav>
@@ -165,7 +157,7 @@
   </div>
 </template>
 <script>
-import { metas, archives } from '../services/Apis'
+import { metas, archives, infos } from '../services/Apis'
 import { mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'SideBar',
@@ -175,7 +167,12 @@ export default {
       archives: [],
       navIndex: 0,
       currentRoute: null,
-      hovering: null
+      hovering: null,
+      avatar: '',
+      nickname: '',
+      slogan: '',
+      weibo: '',
+      github: ''
     }
   },
   computed: {
@@ -201,6 +198,14 @@ export default {
       //     'month': element.substring(5)
       //   })
       // });
+    })
+    infos().then(result => {
+      console.log(result.data)
+      this.avatar = result.data.avatar
+      this.nickname = result.data.nickname
+      this.slogan = result.data.slogan
+      this.github = result.data.github
+      this.weibo = result.data.weibo
     })
     if (this.$route.path === '/') {
       this.navIndex = 1
