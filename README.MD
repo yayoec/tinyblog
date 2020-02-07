@@ -15,6 +15,7 @@
 │   │   ├── admin          		# 管理后台 以 vue-element-admin 为基础二次开发的项目
 │   │   ├── front     			# 博客前端页面 均以 Vue 框架开发
 ├── scripts                     # 部署及其它脚本 sql 文件
+```
 
 # 可能的问题
 1. php 开启 xdebug 调试模式时 minio 端口与 xdebug 冲突 可自行修改
@@ -46,3 +47,6 @@ ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 11. 分页栏
 12. 仓库有5000 个 star 升级性能 更换后台语言引擎为 Go, 以及引入 Redis
 13. 插件化各个组件 方便其它用户设计和添加新的组件
+
+# admin 图片示例
+![admin](http://minio.inectu.com/tinyblog/images/WX20200208-003206.png)
