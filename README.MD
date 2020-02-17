@@ -31,9 +31,9 @@ ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 
 # 修改 docker-compose.yml 里相关数据部署目录之后 直接 docker-compose up 即可一键启动
 
-# 还比较原始 欢迎提交 Issue
+# 还有几个点未完成 欢迎提交 Issue 或者建议
 
-# TodoList
+# 暂定的 TodoList 
 1. 当前文章发布之后 同一类文章之间建立联系
 2. 搜索 使用 ES 做一个搜索引擎或者 Sphinx
 3. 评论框插件 
