@@ -50,3 +50,6 @@ ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
 
 # admin 图片示例
 ![admin](http://minio.inectu.com/tinyblog/images/WX20200208-003206.png)
+
+# 前台效果展示 
+![front](http://minio.inectu.com/tinyblog/images/WX20200217-101940.png)
