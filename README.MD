@@ -9,11 +9,11 @@
 │   │   ├── docker-compose.yml  # docker-compose.yml.sample 修改配置文件里相应目录至部署目录
 ├── conf                     	
 │   │   ├── nginx.conf          # nginx 配置文件 admin.inectu.com blog.inectu.com backend.inectu.com 分别为 博客后台 博客前台和 api
-│   │   ├── php.ini     		    # php 配置文件 需要调整时将此文件挂载进 docker 容器
+│   │   ├── php.ini     		# php 配置文件 需要调整时将此文件挂载进 docker 容器
 │   │   └── ...
 ├── frontend                    
-│   │   ├── admin          		  # 管理后台 以 vue-element-admin 为基础二次开发的项目
-│   │   ├── front     			    # 博客前端页面 均以 Vue 框架开发
+│   │   ├── admin          		# 管理后台 以 vue-element-admin 为基础二次开发的项目
+│   │   ├── front     			# 博客前端页面 均以 Vue 框架开发
 ├── scripts                     # 部署及其它脚本 sql 文件
 ```
 
